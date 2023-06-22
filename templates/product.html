@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {{ super() }}
+    <audio autoplay="" loop="" src="{{url_for('static', filename='Pixies - Where Is My Mind_ (Official Lyric Video).mp3')}}"></audio>
+    <h1 class="ontop" style="color: blueviolet;"> All Products </h1>
+<div class="row">
+    <div class="card" style="margin-top: 50px;">
+        <img src="{{url_for('static', filename='microwave.jpg')}}" class="card-img-top" alt="come on">
+        <div class="card-body">
+          <h5 class="card-title">Microwave Powered by Scream</h5>
+          <p class="card-text">A Revolutionary Microwave Which is Being Powered by Newly Integrated Technology.</p>
+          <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Order</a>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 50px;">
+        <img src="{{url_for('static', filename='unnamed (2).jpg')}}" class="card-img-top" alt="come on">
+        <div class="card-body">
+          <h5 class="card-title">Fridge which Lights Turn off When You Open it</h5>
+          <p class="card-text">Newly Introduced Fridge Which Automatically Turns off Lights When You Open it.</p>
+          <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Order</a>
+        </div>
+      </div>
+    
+      <div class="card" style="margin-top: 50px;">
+        <img src="{{url_for('static', filename='unnamed (1).jpg')}}" class="card-img-top" alt="come on">
+        <div class="card-body">
+          <h5 class="card-title">Kettle Which Works in Quiet</h5>
+          <p class="card-text">Technology Introduced in This Product Coexists with Microwave and Creates Beloved 'Not So Smart House'.</p>
+          <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Order</a>
+        </div>
+      </div>
+</div class="row"> 
+<div class="row">
+    <div class="card" style="margin-top: 130px;">
+        <img src="{{url_for('static', filename='unnamed.jpg')}}" class="card-img-top" alt="come on">
+        <div class="card-body">
+          <h5 class="card-title">Glass without Window</h5>
+          <p class="card-text">Problem of Opening a Window is GONE! Simply by Moving our Glass without Window and BOOM!! The Work is Done!.</p>
+          <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Order</a>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 130px;">
+        <img src="{{url_for('static', filename='noglass.jpg')}}" class="card-img-top" alt="come on">
+        <div class="card-body">
+          <h5 class="card-title">Window without Glass</h5>
+          <p class="card-text">Youre Always Hot in Your House and in a Constant Need to Open the Window? FEAR NOT With our Product the Window is ALWAYS OPEN!!!.</p>
+          <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Order</a>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 130px;">
+        <img src="{{url_for('static', filename='hair.jpg')}}" class="card-img-top" alt="come on">
+        <div class="card-body">
+          <h5 class="card-title">Hair Dryer which Turns on When its off</h5>
+          <p class="card-text">With our Newly Invented Power Technology You Can Have This Hair Dryer Turned on When its off! It Will Consume Power When its Plugged in to Turn off!.</p>
+          <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Order</a>
+        </div>
+      </div>
+</div>
+<!-- Modal -->
+<!-- <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderModalLabel">Order Service</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="inputName">Name</label>
+            <input type="text" class="form-control" id="inputName" placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label for="inputSurname">Surname</label>
+            <input type="text" class="form-control" id="inputSurname" placeholder="Enter your surname">
+          </div>
+          <div class="form-group">
+            <label for="inputPhone">Phone Number</label>
+            <input type="text" class="form-control" id="inputPhone" placeholder="Enter your phone number">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="submitOrder()">Submit Order</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function showOrderDialog(serviceName) {
+    $('#orderModalLabel').text('Order ' + serviceName);
+    $('#inputName').val('');
+    $('#inputSurname').val('');
+    $('#inputPhone').val('');
+    $('#orderModal').modal('show');
+    $('#orderModal').data('service', serviceName);
+  }
+
+  function submitOrder() {
+    var name = $('#inputName').val();
+    var surname = $('#inputSurname').val();
+    var phone = $('#inputPhone').val();
+    var serviceName = $('#orderModal').data('service');
+
+    
+    console.log('Name:', name);
+    console.log('Surname:', surname);
+    console.log('Phone:', phone);
+    console.log('Service:', serviceName);
+
+    // Make an AJAX request to submit the order
+    $.ajax({
+      url: '/submit_order',
+      type: 'POST',
+      data: {
+        name: name,
+        surname: surname,
+        phone: phone,
+        service: serviceName
+      },
+      success: function(response) {
+        // Handle the success response
+        console.log('Order submitted successfully');
+        // Redirect to the order confirmation page using Flask route
+        window.location.href = '/order/' + encodeURIComponent(response.service);
+      },
+      error: function(error) {
+        // Handle the error response
+        console.error('Error submitting order:', error);
+      }
+    });
+
+    // Hide the modal
+    $('#orderModal').modal('hide');
+  }
+</script> -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" placeholder="სახელი">
+        <input type="text" placeholder="გვარი">
+        <input type="tel" placeholder="ნომერი">
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+        <label for="vehicle1">გოჩა (გამოძახება)</label>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button1 btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a type="button" class="button btn-primary" href="{{url_for('delivery')}}">Confirm Order</a>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+{% endblock %}
